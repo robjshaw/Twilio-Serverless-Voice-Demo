@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="url_reader.js"></script>
+
+  </head>
+  <body>
+    <div class="container" style="padding:20px;">
+
+        <div id="job" class="alert alert-primary" role="alert" style="display: none;">Hi</div>
+        
+        <input type="hidden" id="phone-number" />
+        
+        <input type="hidden" name="issueid" id="issueid" />
+
+        <div id="client-name"></div>
+        
+        <hr />
+
+        <div id="call-controls">
+            <button type="button" id="button-call"class="btn btn-primary"><i class="bi-telephone" style="font-size: 2rem; color: rgb(250, 250, 250);"></i> Call</button>
+            <button type="button" id="button-hangup"class="btn btn-warning" style="display:none;"><i class="bi-telephone-x-fill" style="font-size: 2rem; color: rgb(250, 250, 250);"></i> Hang Up</button>
+        </div>
+
+        <div id="log" style="display:none;"></div>
+
+        <div id="controls" style="display:none;">
+        <div id="info">
+        <p class="instructions">Twilio Client</p>
+        <div id="client-name"></div>
+        <div id="output-selection">
+            <label>Ringtone Devices</label>
+            <select id="ringtone-devices" multiple></select>
+            <label>Speaker Devices</label>
+            <select id="speaker-devices" multiple></select><br/>
+            <a id="get-devices">Seeing unknown devices?</a>
+        </div>
+        </div>
+
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+        /*
+        $('#issueid').val(getAllUrlParams().issueid);
+        $('#phone-number').val(getAllUrlParams().phonenumber);
+        */
+
+        var jobid = getAllUrlParams().jobid;
+
+        var settings = {
+            "url": '/get_job?jobid=' + String(jobid),
+            "method": "GET",
+            "timeout": 0,
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            $('#phone-number').val(response.customer);
+            // $('#to-phone-number').val(response.customer);
+            $('#issueid').val(response.tradie_client);
+            $('#job').show();
+            $('#job').html('Hi there! This is about job: <strong>' + response.job_notes + " </strong>if you need to contact the customer click call below")
+        });
+
+    </script>
+
+
+    <script type="text/javascript" src="https://media.twiliocdn.com/sdk/js/client/v1.8/twilio.min.js"></script>
+    <script type="text/javascript" src="quickstart.js"></script>
+
+  </body>
+</html>
