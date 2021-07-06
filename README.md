@@ -22,6 +22,8 @@ TWIML_APPLICATION_SID can be created here - https://www.twilio.com/console/voice
 
 * Create an APP and update the Request URL (POST) to your local server less environment https://YOUR_NGROK.ngrok.io/client-voice-twiml-app
 
+* Upload the CSV's into airtable or replace get_job.js with your own api or crm
+
 ## Let’s spin it up
 Ensure you have Twilio Serverless Toolkit and CLI installed
 
@@ -62,4 +64,4 @@ Twilio functions available:                                                  │
 │                                                       
 ```
 
-Just go to index.html and your webrtc phone should be good to go!
+Just go to index.html?jobid=1 and your webrtc phone should be good to go!
